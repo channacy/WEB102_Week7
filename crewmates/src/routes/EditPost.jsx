@@ -6,7 +6,7 @@ import { useState } from 'react'
 const EditPost = ({supabase}) => {
 
     const {id} = useParams();
-    const [troop, setTroops] = useState({ name: "", count: ""});
+    const [troop, setTroops] = useState({ name: "", role: "", lane: ""});
 
     const updateTroop = async (event) => {
         event.preventDefault();
@@ -14,7 +14,7 @@ const EditPost = ({supabase}) => {
 
         await supabase
         .from('Crew')
-        .update({ name: troop.name, count: troop.count})
+        .update({ name: troop.name, role: troop.role, lane: troop.lane})
         .eq('id', id);
         window.location = "/";
     }
@@ -43,16 +43,34 @@ const EditPost = ({supabase}) => {
     return (
         <div>
             <form>
-                <label> Name </label>
+                <label>Edit Name </label>
                 <input type="text" name="name" value={troop.name} onChange={handleChange} />
 
-                <label>Count</label>
-                <input type="number" name="count" value={troop.count} onChange={handleChange} />
+                <label>Edit Role</label>
+                <select name="role" value={troop.role} onChange={handleChange}>
+                    <option value="Carry">Carry</option>
+                    <option value="Nuker">Nuker</option>
+                    <option value="Initiator">Initiator</option>
+                    <option value="Initiator">Initiator</option>
+                    <option value="Disabler">Disabler</option>
+                    <option value="Durable">Durable</option>
+                    <option value="Escape">Escape</option>
+                    <option value="Support">Support</option>
+                    <option value="Pusher">Pusher</option>
+                    <option value="Jungler">Jungler</option>
+                </select>
+
+                <label>Edit Lane</label>
+                <select name="lane" value={troop.lane} onChange={handleChange}>
+                    <option value="Top">Top</option>
+                    <option value="Middle">Middle</option>
+                    <option value="Bottom">Bottom</option>
+                </select>
                 
-                <input type="submit" value="submit" onClick={updateTroop}></input>
+                
+                <input type="submit" value="Submit Changes" onClick={updateTroop}></input>
             </form>
-            <button onClick={deletePost}>Delete</button>
-            
+            <button className="deleteButton" onClick={deletePost}>Delete</button>
 
         </div>
     )

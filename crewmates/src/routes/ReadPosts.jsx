@@ -23,7 +23,7 @@ const ReadPosts = ({ supabase }) => {
     <div className="ReadPosts">
       {posts && posts.length > 0 ? (
         posts.map((post, index) => (
-          <Card key={post.id} id={post.id} name={post.name} count={post.count} />
+          <Card key={post.id} id={post.id} name={post.name} role={post.role} lane={post.lane}/>
         ))
       ) : (
         <h2>{"No Troops Assembled"}</h2>
